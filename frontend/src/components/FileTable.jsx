@@ -1,8 +1,12 @@
+import { useState } from "react";
 import {
   FileText,
   Image,
   FileSpreadsheet,
-  MoreVertical
+  MoreVertical,
+  Download,
+  Star,
+  Trash2
 } from "lucide-react";
 
 const files = [
@@ -37,6 +41,16 @@ const files = [
 ];
 
 function FileTable() {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const handleMenuToggle = (fileName) => {
+    if (activeMenu === fileName) {
+      setActiveMenu(null);
+    } else {
+      setActiveMenu(fileName);
+    }
+  };
+
   return (
     <section className="files-section">
 
@@ -69,11 +83,13 @@ function FileTable() {
             >
 
               <div className="file-name">
+
                 <div className="file-icon">
                   <FileIcon size={19} />
                 </div>
 
                 <span>{file.name}</span>
+
               </div>
 
               <span className="file-type">
@@ -88,9 +104,37 @@ function FileTable() {
                 {file.modified}
               </span>
 
-              <button className="file-action">
-                <MoreVertical size={19} />
-              </button>
+              <div className="file-action-wrapper">
+
+                <button
+                  className="file-action"
+                  onClick={() => handleMenuToggle(file.name)}
+                >
+                  <MoreVertical size={19} />
+                </button>
+
+                {activeMenu === file.name && (
+                  <div className="file-menu">
+
+                    <button>
+                      <Download size={16} />
+                      <span>Download</span>
+                    </button>
+
+                    <button>
+                      <Star size={16} />
+                      <span>Star</span>
+                    </button>
+
+                    <button className="delete-action">
+                      <Trash2 size={16} />
+                      <span>Delete</span>
+                    </button>
+
+                  </div>
+                )}
+
+              </div>
 
             </div>
           );
