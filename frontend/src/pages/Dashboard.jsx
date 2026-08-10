@@ -10,6 +10,7 @@ import UploadModal from "../components/UploadModal";
 
 function Dashboard() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="app-layout">
@@ -21,7 +22,10 @@ function Dashboard() {
       <main className="main-content">
 
         {/* Top Navigation */}
-        <Navbar />
+        <Navbar
+  searchTerm={searchTerm}
+  setSearchTerm={setSearchTerm}
+/>
 
         {/* Dashboard Content */}
         <section className="dashboard-content">
@@ -90,7 +94,7 @@ function Dashboard() {
           </section>
 
           {/* Files */}
-          <FileTable />
+          <FileTable searchTerm={searchTerm} />
 
         </section>
 

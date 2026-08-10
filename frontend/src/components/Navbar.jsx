@@ -1,6 +1,6 @@
 import { Search, Bell, UserCircle } from "lucide-react";
 
-function Navbar() {
+function Navbar({ searchTerm, setSearchTerm }) {
   return (
     <header className="navbar">
 
@@ -8,9 +8,11 @@ function Navbar() {
         <Search size={19} />
 
         <input
-          type="text"
-          placeholder="Search files..."
-        />
+  type="text"
+  placeholder="Search files..."
+  value={searchTerm}
+  onChange={(event) => setSearchTerm(event.target.value)}
+/>
       </div>
 
       <div className="navbar-actions">

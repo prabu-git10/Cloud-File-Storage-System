@@ -912,3 +912,212 @@ input {
   background: #302126;
   color: #ff858c;
 }
+.no-files {
+  padding: 40px 20px;
+  text-align: center;
+  color: #737c8c;
+  font-size: 14px;
+}
+/* ========================================
+   Responsive Design
+======================================== */
+
+/* ================================
+   Tablet
+================================ */
+
+@media (max-width: 900px) {
+
+  .sidebar {
+    width: 210px;
+    padding: 20px 12px;
+  }
+
+  .main-content {
+    padding: 28px 24px;
+  }
+
+  .folders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-box {
+    width: 280px;
+  }
+
+}
+
+
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 650px) {
+
+  .sidebar {
+    width: 72px;
+    padding: 20px 8px;
+  }
+
+  /* Hide sidebar text */
+  .sidebar-logo {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .sidebar-logo h2 {
+    display: none;
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 12px 8px;
+  }
+
+  .nav-item span {
+    display: none;
+  }
+
+  .sidebar-nav {
+    gap: 8px;
+  }
+
+  .main-content {
+    width: calc(100% - 72px);
+    padding: 20px 16px;
+  }
+
+  /* Navbar */
+
+  .navbar {
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .search-box {
+    width: auto;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Dashboard heading */
+
+  .dashboard-heading {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .dashboard-heading h1 {
+    font-size: 26px;
+  }
+
+  .dashboard-heading p {
+    font-size: 13px;
+  }
+
+  .upload-main-button {
+    flex-shrink: 0;
+  }
+
+  /* Storage */
+
+  .storage-card {
+    max-width: 100%;
+    padding: 18px;
+  }
+
+  /* Folders */
+
+  .folders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .folder-card {
+    padding: 16px;
+  }
+
+  /* Files */
+
+  .files-section {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .file-table {
+    min-width: 650px;
+  }
+
+}
+
+
+/* ================================
+   Small Mobile
+================================ */
+
+@media (max-width: 450px) {
+
+  .sidebar {
+    width: 64px;
+  }
+
+  .main-content {
+    width: calc(100% - 64px);
+    padding: 16px 12px;
+  }
+
+  .navbar {
+    gap: 8px;
+  }
+
+  .search-box {
+    padding: 9px 11px;
+  }
+
+  .search-box input {
+    font-size: 12px;
+  }
+
+  .navbar-actions {
+    gap: 5px;
+  }
+
+  .dashboard-heading {
+    flex-direction: column;
+  }
+
+  .dashboard-heading h1 {
+    font-size: 24px;
+  }
+
+  .upload-main-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .storage-card {
+    padding: 16px;
+  }
+
+  .storage-info strong {
+    font-size: 22px;
+  }
+
+  .section-header h2 {
+    font-size: 17px;
+  }
+
+}
