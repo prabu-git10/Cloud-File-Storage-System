@@ -1,15 +1,85 @@
 import { useState } from "react";
 import { Upload, X, File } from "lucide-react";
 
-function UploadModal({ isOpen, onClose }) {
+function UploadModal({ isOpen, onClose, onUploadSuccess }) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
 
+  // Select file
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
       setSelectedFile(file);
+      setError("");
     }
+  };
+
+  // Upload file
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      return;
+    }
+
+    try {
+      setUploading(true);
+      setError("");
+
+      const formData = new FormData();
+
+      formData.append("file", selectedFile);
+
+      const response = await fetch(
+        "http://localhost:5000/api/files",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "File upload failed"
+        );
+      }
+
+      console.log(
+        "File uploaded successfully:",
+        data.file
+      );
+
+      // Clear selected file
+      setSelectedFile(null);
+
+      // Tell Dashboard to refresh
+      if (onUploadSuccess) {
+        onUploadSuccess();
+      }
+
+    } catch (error) {
+      console.error("Upload error:", error);
+
+      setError(
+        error.message || "Failed to upload file."
+      );
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Reset modal
+  const handleClose = () => {
+    if (uploading) {
+      return;
+    }
+
+    setSelectedFile(null);
+    setError("");
+
+    onClose();
   };
 
   if (!isOpen) {
@@ -34,13 +104,13 @@ function UploadModal({ isOpen, onClose }) {
 
           <button
             className="modal-close"
-            onClick={onClose}
+            onClick={handleClose}
+            disabled={uploading}
           >
             <X size={20} />
           </button>
 
         </div>
-
 
         {/* Upload Area */}
         <div className="upload-area">
@@ -63,12 +133,12 @@ function UploadModal({ isOpen, onClose }) {
               type="file"
               hidden
               onChange={handleFileChange}
+              disabled={uploading}
             />
 
           </label>
 
         </div>
-
 
         {/* Selected File */}
         {selectedFile && (
@@ -83,7 +153,11 @@ function UploadModal({ isOpen, onClose }) {
               </span>
 
               <small>
-                {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
+                {(
+                  selectedFile.size /
+                  (1024 * 1024)
+                ).toFixed(2)}{" "}
+                MB
               </small>
 
             </div>
@@ -91,22 +165,30 @@ function UploadModal({ isOpen, onClose }) {
           </div>
         )}
 
+        {/* Error */}
+        {error && (
+          <div className="upload-error">
+            {error}
+          </div>
+        )}
 
         {/* Modal Actions */}
         <div className="modal-actions">
 
           <button
             className="cancel-button"
-            onClick={onClose}
+            onClick={handleClose}
+            disabled={uploading}
           >
             Cancel
           </button>
 
           <button
             className="upload-button"
-            disabled={!selectedFile}
+            onClick={handleUpload}
+            disabled={!selectedFile || uploading}
           >
-            Upload
+            {uploading ? "Uploading..." : "Upload"}
           </button>
 
         </div>

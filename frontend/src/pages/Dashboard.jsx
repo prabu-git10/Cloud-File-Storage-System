@@ -12,6 +12,14 @@ function Dashboard() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Used to refresh files and storage after upload/delete
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  // Trigger refresh
+  const handleRefresh = () => {
+    setRefreshKey((previousKey) => previousKey + 1);
+  };
+
   return (
     <div className="app-layout">
 
@@ -23,9 +31,9 @@ function Dashboard() {
 
         {/* Top Navigation */}
         <Navbar
-  searchTerm={searchTerm}
-  setSearchTerm={setSearchTerm}
-/>
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
 
         {/* Dashboard Content */}
         <section className="dashboard-content">
@@ -52,7 +60,7 @@ function Dashboard() {
           </div>
 
           {/* Storage */}
-          <StorageBar />
+          <StorageBar refreshKey={refreshKey} />
 
           {/* Folders */}
           <section className="folders-section">
@@ -94,7 +102,10 @@ function Dashboard() {
           </section>
 
           {/* Files */}
-          <FileTable searchTerm={searchTerm} />
+          <FileTable
+            searchTerm={searchTerm}
+            refreshKey={refreshKey}
+          />
 
         </section>
 
@@ -104,6 +115,10 @@ function Dashboard() {
       <UploadModal
         isOpen={isUploadOpen}
         onClose={() => setIsUploadOpen(false)}
+        onUploadSuccess={() => {
+          setIsUploadOpen(false);
+          handleRefresh();
+        }}
       />
 
     </div>

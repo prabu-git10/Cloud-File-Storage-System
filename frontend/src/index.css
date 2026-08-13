@@ -478,7 +478,7 @@ input {
   border: 1px solid #292d36;
   border-radius: 14px;
 
-  overflow: hidden;
+  overflow: visible;
 }
 
 .file-table-header,
