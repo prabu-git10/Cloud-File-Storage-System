@@ -27,7 +27,7 @@ function FileTable({ searchTerm = "", refreshKey }) {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/files"
+        "http://15.252.146.163:5000/api/files"
       );
 
       if (!response.ok) {
@@ -226,7 +226,7 @@ function FileTable({ searchTerm = "", refreshKey }) {
   const handleDownload = async (fileName) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/files/download/${encodeURIComponent(
+        `http://15.252.146.163:5000/api/files/download/${encodeURIComponent(
           fileName
         )}`
       );
@@ -269,7 +269,7 @@ function FileTable({ searchTerm = "", refreshKey }) {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/files/${encodeURIComponent(
+        `http://15.252.146.163:5000/api/files/${encodeURIComponent(
           fileName
         )}`,
         {

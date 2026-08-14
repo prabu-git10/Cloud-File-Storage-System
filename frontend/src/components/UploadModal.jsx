@@ -31,7 +31,7 @@ function UploadModal({ isOpen, onClose, onUploadSuccess }) {
       formData.append("file", selectedFile);
 
       const response = await fetch(
-        "http://localhost:5000/api/files",
+        "http://15.252.146.163:5000/api/files",
         {
           method: "POST",
           body: formData,

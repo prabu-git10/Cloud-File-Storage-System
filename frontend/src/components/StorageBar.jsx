@@ -14,7 +14,7 @@ function StorageBar({ refreshKey }) {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/files/storage"
+        "http://15.252.146.163:5000/api/files/storage"
       );
 
       if (!response.ok) {
